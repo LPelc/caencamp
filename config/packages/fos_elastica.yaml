@@ -5,3 +5,16 @@ fos_elastica:
     indexes:
         app:
           index_name: app_%kernel.environment%
+          types:
+              faune:
+                  properties:
+                      family: ~
+                      nameLatin: ~
+                      vernacularName: ~
+                      date: ~
+                      department: ~
+                  persistence:
+                      driver: orm
+                      model: App\Entity\Faune
+                      provider: ~
+                      finder: ~
