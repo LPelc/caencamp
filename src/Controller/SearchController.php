@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use FOS\ElasticaBundle\Finder\FinderInterface;
 
 class SearchController extends FOSRestController
@@ -18,13 +17,15 @@ class SearchController extends FOSRestController
 
     public function index(Request $request)
     {
-        $result = $this->finder->find($request->query->get('query'));
+        $size = $request->query->get('size');
+        $query = $request->query->get('query');
+
+        $result = $this->finder->find($query, $size);
+
         $view = $this->view($result, 200)
             ->setTemplate("search/index.html.twig")
-            ->setTemplateVar('number')
-        ;
+            ->setTemplateVar('result');
 
         return $this->handleView($view);
-
     }
 }
