@@ -10,7 +10,7 @@ fos_elastica:
                   properties:
                       family: ~
                       nameLatin: ~
-                      vernacularName: ~
+                      vernacularName: {analyzer: french}
                       date: ~
                       department: ~
                   persistence:
@@ -18,3 +18,18 @@ fos_elastica:
                       model: App\Entity\Faune
                       provider: ~
                       finder: ~
+          settings:
+              index:
+                  analysis:
+                      analyzer:
+                          french:
+                              tokenizer: whitespace
+                              filter:
+                                  - asciifolding
+                                  - lowercase
+                                  - edge_nGram
+                      filter:
+                          edge_nGram:
+                              type: edge_ngram
+                              min_gram: 3
+                              max_gram: 10
