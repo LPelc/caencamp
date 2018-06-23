@@ -5,6 +5,8 @@ namespace App\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\ElasticaBundle\Finder\FinderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 
 class SearchController extends FOSRestController
 {
@@ -15,17 +17,31 @@ class SearchController extends FOSRestController
         $this->finder = $finder;
     }
 
-    public function index(Request $request)
+    /**
+     * @Route("/search")
+     * @return unknown
+     */
+    public function index(){
+        return $this->render(
+            'search/index.html.twig'
+        );
+    }
+    
+    /**
+     * @Route("/make-search")
+     * @return unknown
+     */
+    public function launchSearch(Request $request)
     {
-        $size = $request->query->get('size');
+        $size  = $request->query->get('size');
         $query = $request->query->get('query');
 
-        $result = $this->finder->find($query, $size);
+        $results = $this->finder->find($query, $size);
 
-        $view = $this->view($result, 200)
-            ->setTemplate("search/index.html.twig")
-            ->setTemplateVar('result');
-
+        $view = $this->view($results, 200)
+        ->setTemplate("search/item.html.twig")
+        ->setTemplateVar('results');
+       
         return $this->handleView($view);
     }
 }

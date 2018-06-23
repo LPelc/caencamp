@@ -6,16 +6,17 @@ fos_elastica:
         app:
           index_name: app_%kernel.environment%
           types:
-              faune:
+              movie:
                   properties:
-                      family: ~
-                      nameLatin: ~
-                      vernacularName: {analyzer: french}
+                      title: {analyzer: french}
                       date: ~
-                      department: ~
+                      director: ~
+                      actors: ~
+                      sort: ~
+                      description: {analyzer: french}
                   persistence:
                       driver: orm
-                      model: App\Entity\Faune
+                      model: App\Entity\Movie
                       provider: ~
                       finder: ~
           settings:
