@@ -18,7 +18,7 @@ class SearchController extends FOSRestController
     }
 
     /**
-     * @Route("/search")
+     * @Route("/")
      * @return unknown
      */
     public function index(){

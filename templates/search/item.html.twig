@@ -1,0 +1,18 @@
+{% for item in results %}
+	<div class="span8">
+		<br />
+        <h1>{{ item.title }}</h1>
+        <h2>{{ item.director }}</h2>
+        <h4>Avec : {{ item.actors }}</h4>
+        <p>
+        	{{ item.description }}
+        	<br />
+       </p>
+       <div>
+        	<span class="btn btn-secondary float-right">
+        	    {{ item.sort }}
+          </span>
+       </div>
+    </div>
+    
+{% endfor %}
