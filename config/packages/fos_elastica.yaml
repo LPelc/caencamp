@@ -8,7 +8,12 @@ fos_elastica:
           types:
               movie:
                   properties:
-                      title: {analyzer: my_empty_analyzer}
+                      title:
+                          analyzer: my_empty_analyzer
+                          fields:
+                              french_analyzer:
+                                  type: text
+                                  analyzer: my_french_analyzer
                       date: ~
                       director: ~
                       actors: ~
