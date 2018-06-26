@@ -8,12 +8,12 @@ fos_elastica:
           types:
               movie:
                   properties:
-                      title: {analyzer: french}
+                      title: {analyzer: my_empty_analyzer}
                       date: ~
                       director: ~
                       actors: ~
                       sort: ~
-                      description: {analyzer: french}
+                      description: {analyzer: my_french_analyzer}
                   persistence:
                       driver: orm
                       model: App\Entity\Movie
@@ -23,14 +23,25 @@ fos_elastica:
               index:
                   analysis:
                       analyzer:
-                          french:
+                          my_empty_analyzer:
+                              tokenizer: standard
+                          my_french_analyzer:
                               tokenizer: whitespace
                               filter:
                                   - asciifolding
                                   - lowercase
-                                  - edge_nGram
+                                  - my_stemmer
+                                  - my_stop_filter
+                                  - my_synonym_filter
                       filter:
-                          edge_nGram:
-                              type: edge_ngram
-                              min_gram: 3
-                              max_gram: 10
+                          my_stemmer:
+                              type: stemmer
+                              name: light_french
+                          my_stop_filter:
+                              type: stop
+                              stopwords: _french_
+                          my_synonym_filter:
+                              type: synonym
+                              synonyms:
+                                  - rivière, fleuve
+
